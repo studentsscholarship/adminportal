@@ -32,11 +32,12 @@ export default function Login() {
           navigate('/add');
         } else if (response.status === 401) {
           const data = await response.json();
-          //setError(data.message);
+          alert('Invalid username and password');
           console.error('error');
         } else {
           //setError('An unexpected error occurred.');
-          console.error('An unexpected error occurred.');
+          //console.error('An unexpected error occurred.');
+          alert('An unexpected error occurred.');
         }
       } catch (error) {
         console.error('Error:', error);
