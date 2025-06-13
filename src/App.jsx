@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import AddScholarship from './pages/AddScholarship';
-import ViewScholarship from './pages/ViewScholarship';
+import Dashboard from './pages/Dashboard'; // <-- new combined component
 import PrivateRoute from './pages/PrivateRoute';
 
 function App() {
@@ -9,11 +8,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/add" element={ <PrivateRoute>
-              <AddScholarship />
-            </PrivateRoute>} />
-        <Route path="/view" element={<PrivateRoute><ViewScholarship /></PrivateRoute>} />
-        
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );

@@ -10,7 +10,14 @@ export default function AddScholarship() {
     title: '',
     criteria: ''
   });
-
+  const inputStyle = {
+    width: '100%',
+    padding: '10px',
+    margin: '10px 0',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+  };
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -22,6 +29,7 @@ export default function AddScholarship() {
     e.preventDefault();
     try {
       await axios.post("https://scholarshipadminapi20250603120201.azurewebsites.net/api/Scholarship/add", formData);
+      //await axios.post("http://localhost:5173/api/Scholarship/add", formData);
       alert("Scholarship added successfully");
       setFormData({ education: '', category: '', title: '', criteria: '' });
     } catch (error) {
@@ -30,41 +38,67 @@ export default function AddScholarship() {
   };
 
   return (
-    <div>
-      {/* NavBar */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '10px 20px',
-        backgroundColor: '#1976d2',
-        color: 'white'
+    <div style={{ backgroundColor: '#f5f7fa', minHeight: '100vh' }}>
+   
+
+    {/* Form Container */}
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+      <form onSubmit={handleSubmit} style={{
+        width: '100%',
+        maxWidth: '600px',
+        padding: '30px',
+        boxShadow: '0px 0px 10px rgba(0,0,0,0.1)',
+        borderRadius: '8px',
+        backgroundColor: '#ffffff'
       }}>
-        <h3>Scholarship Admin</h3>
-        <button onClick={handleLogout} style={{
-          backgroundColor: 'white',
-          color: '#1976d2',
+        <h2 style={{ textAlign: 'center', color: '#333' }}>Add Scholarship</h2>
+
+        <input
+          placeholder="Education"
+          value={formData.education}
+          onChange={(e) => setFormData({ ...formData, education: e.target.value })}
+          style={inputStyle}
+        />
+        <input
+          placeholder="Category"
+          value={formData.category}
+          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+          style={inputStyle}
+        />
+        <input
+          placeholder="Title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          style={inputStyle}
+        />
+        <input
+          placeholder="Criteria"
+          value={formData.criteria}
+          onChange={(e) => setFormData({ ...formData, criteria: e.target.value })}
+          style={inputStyle}
+        />
+
+        <button type="submit" style={{
+          width: '100%',
+          padding: '12px',
+          marginTop: '16px',
+          backgroundColor: '#1565c0',
+          color: 'white',
           border: 'none',
-          padding: '8px 16px',
           borderRadius: '4px',
+          fontSize: '16px',
           cursor: 'pointer'
         }}>
-          Logout
+          Submit
         </button>
-      </div>
-
-      {/* Form */}
-      <form onSubmit={handleSubmit} style={{ marginTop: '20px', padding: '20px' }}>
-        <h2>Add Scholarship</h2>
-        <input placeholder="Education" value={formData.education} onChange={(e) => setFormData({ ...formData, education: e.target.value })} /><br/><br/>
-        <input placeholder="Category" value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} /><br/><br/>
-        <input placeholder="Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} /><br/><br/>
-        <input placeholder="Criteria" value={formData.criteria} onChange={(e) => setFormData({ ...formData, criteria: e.target.value })} /><br/><br/>
-        <button type="submit">Submit</button>
       </form>
-
-      <br />
-      <ViewScholarship />
     </div>
+
+    {/* Scholarship List Section */}
+    {/* <div style={{ padding: '40px' }}>
+      <h2 style={{ color: '#333' }}>All Scholarships</h2>
+      <ViewScholarship />
+    </div> */}
+  </div>
   );
 }
